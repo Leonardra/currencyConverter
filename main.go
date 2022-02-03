@@ -8,4 +8,8 @@ import (
 func main() {
 	router:=gin.Default()
 	route.CurrencyRouter(router)
+	error := router.Run()
+	if error != nil {
+		return
+	}
 }

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func convertCurrencyExchange(exchangeTable map[string]map[string]float64) gin.HandlerFunc{
+func ConvertCurrencyExchange(exchangeTable map[string]map[string]float64) gin.HandlerFunc{
 	currencyExchangeRequest := new(model.CurrencyExchangeRequestDto)
 	return func(context *gin.Context){
 		err := context.Bind(currencyExchangeRequest)
@@ -29,8 +29,6 @@ func convertCurrencyExchange(exchangeTable map[string]map[string]float64) gin.Ha
 
 func  convertToCurrency(exchangeTable map[string]map[string]float64,
 	currencyExchangeRequest *model.CurrencyExchangeRequestDto) (error, float64){
-
-	//var result = 0.0
 	_, ok1 := exchangeTable[strings.ToUpper(currencyExchangeRequest.From)]
 	_, ok2 := exchangeTable[strings.ToUpper(currencyExchangeRequest.To)]
 
@@ -38,12 +36,6 @@ func  convertToCurrency(exchangeTable map[string]map[string]float64,
 		return errors.New("currency does not exist"), 0.0
 	}
 	result := currencyExchangeRequest.AmountToConvert * exchangeTable[currencyExchangeRequest.From][currencyExchangeRequest.To]
-	//for key, value := range exchangeTable {
-	//	if currencyExchangeRequest.From == key {
-	//		result = currencyExchangeRequest.AmountToConvert * value[currencyExchangeRequest.To]
-	//		fmt.Println("Success")
-	//	}
-	//}
 		return nil, result
 }
 
